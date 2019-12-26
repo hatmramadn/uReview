@@ -5,10 +5,15 @@ import {
   StyleSheet,
   TouchableNativeFeedback,
   Image,
-  Dimensions,
-  StatusBar
+  Dimensions
 } from "react-native";
+import {
+  GoogleSignin,
+  GoogleSigninButton
+} from "@react-native-community/google-signin";
+
 import colors from "../constants/colors";
+import { signIn } from "../auth/GoogleLogin";
 
 const AuthScreen = props => {
   return (
@@ -19,17 +24,17 @@ const AuthScreen = props => {
           source={require("../assets/pic.png")}
         />
       </View>
-      <TouchableNativeFeedback onPress={() => signInWithGoogleAsync()}>
-        <View style={styles.button}>
-          <Image
-            style={{ height: 20, width: 20, marginRight: 10 }}
-            source={require("../assets/search.png")}
-          />
-          <Text style={{ fontSize: 16, color: colors.text }}>
-            Sign in with Google
-          </Text>
-        </View>
-      </TouchableNativeFeedback>
+      <View style={styles.content}>
+        <Text style={styles.heading}>uReview</Text>
+        <Text style={styles.subhead}>Share good experoences with people</Text>
+        <GoogleSigninButton
+          style={{ width: 192, height: 48, elevation: 0 }}
+          size={GoogleSigninButton.Size.Wide}
+          color={GoogleSigninButton.Color.Light}
+          onPress={signIn}
+          disabled={false}
+        />
+      </View>
     </View>
   );
 };
@@ -42,25 +47,28 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    position: "absolute",
-    top: 100
+    marginTop: 70
   },
   headerImage: {
-    width: 300,
-    height: 300
+    width: 250,
+    height: 250
   },
-  button: {
-    marginTop: Dimensions.get("screen").height / 1.5,
-    elevation: 1,
-    paddingHorizontal: 25,
-    paddingVertical: 15,
-    flexDirection: "row",
+  content: {
+    flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    shadowColor: "#000",
-    shadowOpacity: 0.3,
-    shadowRadius: 10
+    alignItems: "center"
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: colors.text
+  },
+  subhead: {
+    fontSize: 20,
+    width: 260,
+    color: colors.text,
+    textAlign: "center",
+    marginBottom: 20
   }
 });
 
