@@ -1,21 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableNativeFeedback,
   Image,
-  Dimensions
+  AsyncStorage
 } from "react-native";
-import {
-  GoogleSignin,
-  GoogleSigninButton
-} from "@react-native-community/google-signin";
+import { GoogleSigninButton } from "@react-native-community/google-signin";
+import { useSelector, useDispatch } from "react-redux";
 
+import { authAction } from "../store/actions/authAction";
 import colors from "../constants/colors";
-import { signIn } from "../auth/GoogleLogin";
 
 const AuthScreen = props => {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user.user);
+  const handleAuth = () => {
+    dispatch(authAction());
+  };
+  useEffect(() => {
+    if (user != null) {
+      props.navigation.navigate("Main");
+    }
+  }, [user]);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -24,6 +32,7 @@ const AuthScreen = props => {
           source={require("../assets/pic.png")}
         />
       </View>
+
       <View style={styles.content}>
         <Text style={styles.heading}>uReview</Text>
         <Text style={styles.subhead}>Share good experoences with people</Text>
@@ -31,7 +40,7 @@ const AuthScreen = props => {
           style={{ width: 192, height: 48, elevation: 0 }}
           size={GoogleSigninButton.Size.Wide}
           color={GoogleSigninButton.Color.Light}
-          onPress={signIn}
+          onPress={handleAuth}
           disabled={false}
         />
       </View>

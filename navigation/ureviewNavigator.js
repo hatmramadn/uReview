@@ -10,20 +10,22 @@ import AuthScreen from "../screens/AuthScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  Home: {
+    screen: HomeScreen
+  },
   Overview: ReviewOverviewScreen
 });
 
 const AppTabNavigator = createBottomTabNavigator({
-  Home: HomeStack,
+  Home: HomeScreen,
   Add: AddReviewScreen,
   Profile: ProfileScreen
 });
 
 const AppSwitchNavigator = createSwitchNavigator({
   Loading: LoadingScreen,
-  Auth: AuthScreen,
-  Main: AppTabNavigator
+  Main: AppTabNavigator,
+  Auth: AuthScreen
 });
 
 export default createAppContainer(AppSwitchNavigator);
