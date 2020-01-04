@@ -5,8 +5,7 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
-  Dimensions
+  StatusBar
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -115,13 +114,17 @@ const dummyData = [
   }
 ];
 const HomeScreen = props => {
-  const user = useSelector(state => state.user.user);
-  return (
-    <View style={styles.container}>
-      <ScrollView style={{ flex: 1 }}>
-        <Image source={require("../assets/path.png")} style={styles.path} />
+  const renderHeader = () => {
+    return (
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle="dark-content" backgroundColor={colors.greyLight} />
+
         <Text style={styles.greetings}>Hello,</Text>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate("Profile");
+          }}
+        >
           <View style={styles.header}>
             <View
               style={{ elevation: 2, width: 50, height: 50, borderRadius: 25 }}
@@ -131,39 +134,43 @@ const HomeScreen = props => {
             <Text style={styles.profileTitle}>{user.name}</Text>
           </View>
         </TouchableOpacity>
-        <View style={styles.content}>
-          <Text style={styles.title}>Latest Reviews</Text>
-          <View style={{ flex: 1 }}>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              keyExtractor={item => item.id}
-              data={dummyData}
-              renderItem={({ item }) => (
-                <ReviewCard
-                  userImage={item.userPic}
-                  userName={item.userName}
-                  contentPic={item.contentPic}
-                  reviewTitle={item.reviewTitle}
-                  reviewDescription={item.reviewDescription}
-                />
-              )}
+        <Text style={styles.title}>Latest Reviews</Text>
+      </View>
+    );
+  };
+  const user = useSelector(state => state.user.user);
+  return (
+    <View style={styles.container}>
+      <Image source={require("../assets/path.png")} style={styles.path} />
+      <View style={{ flex: 1, marginLeft: 10 }}>
+        <FlatList
+          ListHeaderComponent={renderHeader}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={item => item.id}
+          data={dummyData}
+          renderItem={({ item }) => (
+            <ReviewCard
+              userImage={item.userPic}
+              userName={item.userName}
+              contentPic={item.contentPic}
+              reviewTitle={item.reviewTitle}
+              reviewDescription={item.reviewDescription}
+              onItemPressed={() => {
+                props.navigation.navigate("Overview", {
+                  item: item
+                });
+              }}
             />
-          </View>
-        </View>
-      </ScrollView>
+          )}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    width: Dimensions.get("screen").width * 0.8,
-    color: colors.white,
-    borderRadius: 10,
-    alignItems: "flex-start",
-    padding: 10
-  },
   container: {
+    backgroundColor: colors.greyLight,
     flex: 1,
     alignItems: "flex-start"
   },
@@ -183,7 +190,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 20
+    marginLeft: 20,
+    marginBottom: 20
   },
   profileImage: {
     width: 50,
@@ -196,13 +204,8 @@ const styles = StyleSheet.create({
     color: colors.text,
     marginLeft: 10
   },
-  content: {
-    flex: 1,
-    marginLeft: 10,
-    marginTop: 30
-  },
   title: {
-    marginLeft: 10,
+    marginLeft: 20,
     fontSize: 20,
     fontWeight: "700",
     color: colors.text,

@@ -1,49 +1,58 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+  TouchableOpacity
+} from "react-native";
 import colors from "../constants/colors";
 
 const ReviewCard = props => {
   return (
-    <View style={styles.cardContainer}>
-      <View style={styles.titleWrapper}>
-        <Image style={styles.titleImage} source={{ uri: props.userImage }} />
-        <Text style={styles.title}>{props.userName}</Text>
-      </View>
-      <View style={styles.contentWrapper}>
-        <View style={styles.imageWrapper}>
-          <Image
-            style={styles.contentImage}
-            source={{ uri: props.contentPic }}
-          />
+    <TouchableOpacity onPress={props.onItemPressed}>
+      <View style={styles.cardContainer}>
+        <View style={styles.titleWrapper}>
+          <Image style={styles.titleImage} source={{ uri: props.userImage }} />
+          <Text style={styles.title}>{props.userName}</Text>
         </View>
-        <View style={styles.reviewWrapper}>
-          <Text style={styles.reviweTitle}>{props.reviewTitle}</Text>
-          <View style={{ flexDirection: "row", marginBottom: 10 }}>
+        <View style={styles.contentWrapper}>
+          <View style={styles.imageWrapper}>
             <Image
-              source={require("../assets/star.png")}
-              style={{ width: 20, height: 20 }}
-            />
-            <Image
-              source={require("../assets/star.png")}
-              style={{ width: 20, height: 20 }}
-            />
-            <Image
-              source={require("../assets/star.png")}
-              style={{ width: 20, height: 20 }}
-            />
-            <Image
-              source={require("../assets/star.png")}
-              style={{ width: 20, height: 20 }}
-            />
-            <Image
-              source={require("../assets/star.png")}
-              style={{ width: 20, height: 20 }}
+              style={styles.contentImage}
+              source={{ uri: props.contentPic }}
             />
           </View>
-          <Text style={styles.reviewComment}>{props.reviewDescription}</Text>
+          <View style={styles.reviewWrapper}>
+            <Text style={styles.reviweTitle}>{props.reviewTitle}</Text>
+            <View style={{ flexDirection: "row", marginBottom: 10 }}>
+              <Image
+                source={require("../assets/star.png")}
+                style={{ width: 20, height: 20 }}
+              />
+              <Image
+                source={require("../assets/star.png")}
+                style={{ width: 20, height: 20 }}
+              />
+              <Image
+                source={require("../assets/star.png")}
+                style={{ width: 20, height: 20 }}
+              />
+              <Image
+                source={require("../assets/star.png")}
+                style={{ width: 20, height: 20 }}
+              />
+              <Image
+                source={require("../assets/star.png")}
+                style={{ width: 20, height: 20 }}
+              />
+            </View>
+            <Text style={styles.reviewComment}>{props.reviewDescription}</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

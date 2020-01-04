@@ -1,4 +1,4 @@
-import { ToastAndroid, AsyncStorage, ActionSheetIOS } from "react-native";
+import { ToastAndroid } from "react-native";
 import {
   GoogleSignin,
   statusCodes
@@ -59,8 +59,10 @@ export const authAction = () => {
 
 export const AuthenticateSilently = () => {
   return async dispatch => {
-    const { user } = await GoogleSignin.signInSilently();
-    dispatch({ type: "AUTHENTICATE_SILENTLY", payload: user });
+    try {
+      const { user } = await GoogleSignin.signInSilently();
+      dispatch({ type: "AUTHENTICATE_SILENTLY", payload: user });
+    } catch (error) {}
   };
 };
 

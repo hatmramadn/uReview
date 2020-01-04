@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  ActivityIndicator,
-  StyleSheet,
-  AsyncStorage
-} from "react-native";
+import React, { useEffect } from "react";
+import { View, ActivityIndicator, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import colors from "../constants/colors";
