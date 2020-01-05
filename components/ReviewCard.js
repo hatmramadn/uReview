@@ -8,6 +8,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import colors from "../constants/colors";
+import { Rating, AirbnbRating } from "react-native-ratings";
 
 const ReviewCard = props => {
   return (
@@ -26,28 +27,18 @@ const ReviewCard = props => {
           </View>
           <View style={styles.reviewWrapper}>
             <Text style={styles.reviweTitle}>{props.reviewTitle}</Text>
-            <View style={{ flexDirection: "row", marginBottom: 10 }}>
-              <Image
-                source={require("../assets/star.png")}
-                style={{ width: 20, height: 20 }}
-              />
-              <Image
-                source={require("../assets/star.png")}
-                style={{ width: 20, height: 20 }}
-              />
-              <Image
-                source={require("../assets/star.png")}
-                style={{ width: 20, height: 20 }}
-              />
-              <Image
-                source={require("../assets/star.png")}
-                style={{ width: 20, height: 20 }}
-              />
-              <Image
-                source={require("../assets/star.png")}
-                style={{ width: 20, height: 20 }}
-              />
-            </View>
+
+            <AirbnbRating
+              showRating={false}
+              isDisabled={true}
+              defaultRating={5}
+              size={22}
+              starStyle={{
+                tintColor: "#FCB040",
+                marginBottom: 10
+              }}
+            />
+
             <Text style={styles.reviewComment}>{props.reviewDescription}</Text>
           </View>
         </View>
@@ -102,7 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     color: colors.text,
-    marginBottom: 10
+    marginBottom: 5
   }
 });
 export default ReviewCard;

@@ -117,8 +117,6 @@ const HomeScreen = props => {
   const renderHeader = () => {
     return (
       <View style={{ flex: 1 }}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.greyLight} />
-
         <Text style={styles.greetings}>Hello,</Text>
         <TouchableOpacity
           onPress={() => {
