@@ -8,7 +8,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import colors from "../constants/colors";
-import { Rating, AirbnbRating } from "react-native-ratings";
+import { AirbnbRating } from "react-native-ratings";
 
 const ReviewCard = props => {
   return (
