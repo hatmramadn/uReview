@@ -1048,6 +1048,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-6.2.0.tgz#9060ccd9289c1cbd421dc6708066bfe3fd1a2e76"
   integrity sha512-DRoJEcryYbvFt5lzgkxBkKmQKohxT766hl263fwspJdR5VrTF0LhTz4fYA3VcUAtFz8sho0qt4vRQktELCBe+A==
 
+"@react-native-firebase/storage@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/storage/-/storage-6.2.0.tgz#011e2f597794eadc55f3f3793e5cf11a72f62efb"
+  integrity sha512-N+dC2wR5SKo8y2Y9WpMGn52qqCWIzUaiaJ4ft0lRTv8cM+f72RjmEDW9h52fOd+4gBC4aV3WSe4RVACob72w7g==
+
 "@react-navigation/core@^3.5.1":
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-3.5.1.tgz#7a2339fca3496979305fb3a8ab88c2ca8d8c214d"
@@ -7099,7 +7104,7 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@^3.3.2:
+uuid@^3.3.2, uuid@^3.3.3:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"
   integrity sha512-pW0No1RGHgzlpHJO1nsVrHKpOEIxkGg1xB+v0ZmdNH5OAeAwzAVrCnI2/6Mtx+Uys6iaylxa+D3g4j63IKKjSQ==

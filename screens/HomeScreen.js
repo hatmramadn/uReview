@@ -5,13 +5,13 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  StatusBar
+  FlatList
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import colors from "../constants/colors";
 import ReviewCard from "../components/ReviewCard";
-import { FlatList } from "react-native-gesture-handler";
+
 const dummyData = [
   {
     id: "1",

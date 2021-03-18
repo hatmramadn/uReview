@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableNativeFeedback,
-  Image,
-  AsyncStorage
-} from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { GoogleSigninButton } from "@react-native-community/google-signin";
 import { useSelector, useDispatch } from "react-redux";
 

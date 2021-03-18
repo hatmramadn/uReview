@@ -7,17 +7,50 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   ToastAndroid,
-  Image
+  Image,
+  Alert
 } from "react-native";
 import { AirbnbRating } from "react-native-ratings";
 import colors from "../constants/colors";
 import { ScrollView } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
 import ImagePicker from "react-native-image-picker";
+import { useForm, Controller } from "react-hook-form";
 
 const AddReviewScreen = props => {
+  const [formerrors, setFormErrors] = useState({});
+  const [progress, setprogress] = useState(0);
   const [rating, setRating] = useState(null);
   const [photo, setPhoto] = useState(null);
+  const { control, handleSubmit, errors } = useForm();
+
+  const onSubmit = data => {
+    if (photo === null) {
+      setFormErrors({ ...formerrors, photo: "Review Photo is required" });
+      return;
+    }
+    if (rating === null) {
+      setFormErrors({
+        ...formerrors,
+        rating: "Review photo is Required"
+      });
+      return;
+    }
+
+    const formData = {
+      reviewTitle: data.reviewTitle,
+      reviewDescription: data.reviewDescription,
+      rating: rating,
+      photo: photo
+    };
+    console.log(formData);
+  };
+  const onChange = args => {
+    return {
+      value: args[0].nativeEvent.text
+    };
+  };
+
   const selectImage = () => {
     const options = {
       title: "Select Photo for the Review",
@@ -38,6 +71,10 @@ const AddReviewScreen = props => {
       } else {
         const source = { uri: response.uri };
         setPhoto(source);
+        setFormErrors({
+          ...formerrors,
+          photo: null
+        });
         console.log(source);
       }
     });
@@ -48,30 +85,91 @@ const AddReviewScreen = props => {
         <Text style={styles.heading}>Add new review</Text>
         <View style={styles.formField}>
           <Text style={styles.title}>Review Title</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Title here"
-            placeholderTextColor={colors.blueGrey}
+          <Controller
+            as={
+              <TextInput
+                style={styles.input}
+                placeholder="Enter Title here"
+                placeholderTextColor={colors.blueGrey}
+              />
+            }
+            control={control}
+            name="reviewTitle"
+            onChange={onChange}
+            rules={{ required: true }}
           />
+          {errors.reviewTitle && (
+            <Text
+              style={{
+                fontSize: 17,
+                color: "#ff443b",
+                marginLeft: 20,
+                marginTop: 5
+              }}
+            >
+              THIS IS REQUIRED
+            </Text>
+          )}
         </View>
         <View style={styles.formField}>
           <Text style={styles.title}>What's your rating</Text>
-          <View style={{ marginLeft: 15, marginTop: 5 }}>
+          <View
+            style={{
+              width: "100%",
+              alignItems: "flex-start",
+              justifyContent: "center",
+              marginLeft: 20
+            }}
+          >
             <AirbnbRating
               defaultRating={0}
               showRating={false}
               size={24}
-              onFinishRating={value => setRating(value)}
+              onFinishRating={value => {
+                setRating(value);
+                setFormErrors({ ...formerrors, rating: null });
+              }}
             />
+            {formerrors.rating && (
+              <Text
+                style={{
+                  fontSize: 17,
+                  color: "#ff443b",
+                  marginTop: 5
+                }}
+              >
+                THIS IS REQUIRED
+              </Text>
+            )}
           </View>
         </View>
         <View style={styles.formField}>
-          <Text style={styles.title}>Review Title</Text>
-          <TextInput
-            style={styles.textArea}
-            placeholder="Enter Title here"
-            placeholderTextColor={colors.blueGrey}
+          <Text style={styles.title}>Your comment</Text>
+          <Controller
+            as={
+              <TextInput
+                style={styles.textArea}
+                placeholder="Enter your comment"
+                placeholderTextColor={colors.blueGrey}
+              />
+            }
+            control={control}
+            name="reviewDescription"
+            onChange={onChange}
+            rules={{ required: true }}
           />
+          {errors.reviewDescription && (
+            <Text
+              style={{
+                fontSize: 17,
+                color: "#ff443b",
+                marginLeft: 20,
+                marginTop: 5
+              }}
+            >
+              THIS IS REQUIRED
+            </Text>
+          )}
         </View>
         <TouchableOpacity style={styles.selectButton} onPress={selectImage}>
           {photo ? (
@@ -107,7 +205,29 @@ const AddReviewScreen = props => {
             </View>
           )}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.addButton}>
+        {formerrors.photo && (
+          <View
+            style={{
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: 10
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 17,
+                color: "#ff443b"
+              }}
+            >
+              THIS IS REQUIRED
+            </Text>
+          </View>
+        )}
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={handleSubmit(onSubmit)}
+        >
           <Text
             style={{
               color: colors.white,

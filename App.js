@@ -6,9 +6,11 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 import AppContainer from "./navigation/ureviewNavigator";
 import authReducer from "./store/reducers/authReducer";
+import reviewReduer from "./store/reducers/reviewReducer";
 
 const rootReducer = combineReducers({
-  user: authReducer
+  user: authReducer,
+  reviews: reviewReduer
 });
 const store = createStore(
   rootReducer,
