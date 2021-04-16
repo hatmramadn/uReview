@@ -1,10 +1,11 @@
 import {
   AUTHENTICATE,
   AUTHENTICATE_SILENTLY,
-  GET_CURRENT_USER
+  GET_CURRENT_USER,
+  SIGN_USER_OUT,
 } from "../actions/authAction";
 const initialState = {
-  user: null
+  user: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -12,17 +13,22 @@ const authReducer = (state = initialState, action) => {
     case AUTHENTICATE:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
     case AUTHENTICATE_SILENTLY:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
     case GET_CURRENT_USER:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
+      };
+    case SIGN_USER_OUT:
+      return {
+        ...state,
+        user: null,
       };
     default:
       return state;

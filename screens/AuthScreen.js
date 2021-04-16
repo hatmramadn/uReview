@@ -6,14 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { authAction } from "../store/actions/authAction";
 import colors from "../constants/colors";
 
-const AuthScreen = props => {
+const AuthScreen = (props) => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.user);
+  const user = useSelector((state) => state.user.user);
   const handleAuth = () => {
     dispatch(authAction());
   };
   useEffect(() => {
-    if (user != null) {
+    if (user !== null) {
       props.navigation.navigate("Main");
     }
   }, [user]);
@@ -28,7 +28,7 @@ const AuthScreen = props => {
 
       <View style={styles.content}>
         <Text style={styles.heading}>uReview</Text>
-        <Text style={styles.subhead}>Share good experoences with people</Text>
+        <Text style={styles.subhead}>Share good experiences with people</Text>
         <GoogleSigninButton
           style={{ width: 192, height: 48, elevation: 0 }}
           size={GoogleSigninButton.Size.Wide}
@@ -45,33 +45,33 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.greyLight
+    backgroundColor: colors.greyLight,
   },
   header: {
     flex: 1,
-    marginTop: 70
+    marginTop: 70,
   },
   headerImage: {
     width: 250,
-    height: 250
+    height: 250,
   },
   content: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   heading: {
     fontSize: 24,
     fontWeight: "bold",
-    color: colors.text
+    color: colors.text,
   },
   subhead: {
     fontSize: 20,
     width: 260,
     color: colors.text,
     textAlign: "center",
-    marginBottom: 20
-  }
+    marginBottom: 20,
+  },
 });
 
 export default AuthScreen;

@@ -1,22 +1,22 @@
 import { ToastAndroid } from "react-native";
 import {
   GoogleSignin,
-  statusCodes
+  statusCodes,
 } from "@react-native-community/google-signin";
 
 import { firebase } from "@react-native-firebase/auth";
 GoogleSignin.configure({
-  webClientId:
-    "138221793576-e3215kf65ubs8kv96pmbvpf51k37j1r9.apps.googleusercontent.com",
-  offlineAccess: true
+  webClientId,
+  offlineAccess: true,
 });
 
 export const AUTHENTICATE = "AUTHENTICATE";
 export const AUTHENTICATE_SILENTLY = "AUTHENTICATE_SILENTLY";
 export const GET_CURRENT_USER = "GET_CURRENT_USER";
+export const SIGN_USER_OUT = "SIGN_USER_OUT";
 
 export const authAction = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       await GoogleSignin.hasPlayServices();
       const { accessToken, idToken, user } = await GoogleSignin.signIn();
@@ -58,7 +58,7 @@ export const authAction = () => {
 };
 
 export const AuthenticateSilently = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const { user } = await GoogleSignin.signInSilently();
       dispatch({ type: "AUTHENTICATE_SILENTLY", payload: user });
@@ -67,10 +67,21 @@ export const AuthenticateSilently = () => {
 };
 
 export const getCurrentUser = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const currentUser = await GoogleSignin.getCurrentUser();
       dispatch({ type: GET_CURRENT_USER, payload: currentUser.user });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const signOut = (navigation) => {
+  return async (dispatch) => {
+    try {
+      await GoogleSignin.signOut();
+      dispatch({ type: SIGN_USER_OUT });
     } catch (error) {
       console.log(error);
     }
