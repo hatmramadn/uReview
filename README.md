@@ -17,3 +17,32 @@ https://user-images.githubusercontent.com/20639687/115097624-9c529500-9f2b-11eb-
  - Camera Access
  - Gallery Access
  
+## How to run the app
+
+1. Clone the project
+
+```
+git clone https://github.com/hatmramadn/uReview.git
+```
+
+2. Install dependencies
+
+```
+cd uReview
+
+# Using yarn
+yarn install
+
+# Using npm
+npm install
+```
+3. Run the app
+
+```
+# Using yarn
+yarn ios
+yarn android
+
+# Using npm
+npm run ios
+npm run android
